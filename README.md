@@ -436,7 +436,7 @@ Product images are stored in **Azure Blob Storage**. This service is optimized f
 
 ### 6. What is the role of Azure Queues in order processing?
 
-**Azure Queues** manage the **reliable flow of transactional messages** related to orders (e.g., inventory deduction, fulfillment notifications). They act as a buffer, ensuring that messages are reliably stored and delivered to the backend processing Azure Functions, preventing backlogs and system slowdowns\*\* during high-traffic events.
+**Azure Queues** manage the **reliable flow of transactional messages** related to orders (e.g., inventory deduction, fulfillment notifications). They act as a buffer, ensuring that messages are reliably stored and delivered to the backend processing Azure Functions, preventing backlogs and system slowdowns during high-traffic events.
 
 ### 7. Why are both Azure SQL Database and Azure Table Storage used for customer/product data?
 
@@ -444,27 +444,23 @@ They serve different purposes:
 _ **Azure SQL** holds the **relational data** (e.g., customer transaction history, product inventory levels).
 _ **Azure Table Storage** is used for **supplementary, semi-structured data** like user preferences, session history, or application metadata, where massive volume and speed of simple writes are crucial.
 
-### 8. Is a dedicated Microsoft Azure subscription required to successfully execute and operate this cloud solution?\*\*
+### 8. Is it possible to execute the application locally without an active connection to the Azure Cloud services?
 
-**Yes**, a **fully provisioned Azure subscription** is an **essential prerequisite** for this system. The core application logic is tightly coupled with Platform as a Service (PaaS) resources, including Azure SQL Database, Azure Blob Storage, Azure Table Storage, and Azure Functions. The application will not function correctly until these specific cloud services have been successfully configured and deployed within a valid Azure environment.
+The **foundational web application component** can be executed locally, for instance, using a local development environment. However, any **core feature reliant on the cloud resources** - including data retrieval from Azure SQL Database, media access from Blob Storage, and the initiation of asynchronous message processing via Azure Queues/Functions will be **non-operational or disabled**. Full functionality requires connectivity to the live, provisioned Azure backend.
 
-### 9. Is it possible to execute the application locally without an active connection to the Azure Cloud services?\*\*
-
-The **foundational web application component** can be executed locally, for instance, using a local development environment. However, any **core feature reliant on the cloud resources**—including data retrieval from Azure SQL Database, media access from Blob Storage, and the initiation of asynchronous message processing via Azure Queues/Functions—will be **non-operational or disabled**. Full functionality requires connectivity to the live, provisioned Azure backend.
-
-### 10. Is the processing and confirmation of customer orders performed in a synchronous or asynchronous manner?\*\*
+### 9. Is the processing and confirmation of customer orders performed in a synchronous or asynchronous manner?
 
 Order processing is **designed to be asynchronous** to maximize application responsiveness and scalability. Upon order submission, the transaction details are **immediately placed into an Azure Queue**. This action allows the front-end web application to confirm receipt instantly.
 
-### 11. Are the provided default user credentials suitable for use in a production environment?\*\*
+### 10. Are the provided default user credentials suitable for use in a production environment?
 
 **Absolutely not**. The **authentication credentials** included within the repository or initial setup files are **strictly intended for development, testing, and demonstration purposes only**. Production environments must utilize a robust set of accounts, ideally provisioned through secure management practices and possibly integrated with services like Azure Active Directory, ensuring no default or easily compromised credentials are used for live operations.
 
-### 12. How are authentication mechanisms and data security implemented within the web application?\*\*
+### 11. How are authentication mechanisms and data security implemented within the web application?
 
 Security is handled through multiple integrated layers:
 _ **Authentication**: The system employs role-based authentication, restricting access and functionality based on a user's assigned permissions (e.g., Administrator, Customer).
-_ **Data Security**: All data transmission across the network is secured via HTTPS/SSL when published on Azure, and sensitive data stored in the Azure SQL Database benefits from Azure's platform-level encryption and management features\*\*.
+_ **Data Security**: All data transmission across the network is secured via HTTPS/SSL when published on Azure, and sensitive data stored in the Azure SQL Database benefits from Azure's platform-level encryption and management features.
 
 ---
 
